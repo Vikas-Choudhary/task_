@@ -1,0 +1,141 @@
+//problem
+ Implement a 3D vector class, providing a useful set of methods or functions for the class and any other related classes.
+
+//solution
+#include<bits/stdc++.h>
+using namespace std;
+//3D Vector class implementation
+//Apart from the basic operations like multiplication, division, addition and subtraction
+// most used operations such as dot product, cross product, normalization and finding distance are also included
+class v_3D
+{
+public:
+    double x,y,z;
+
+    //CONSTRUCT_
+    v_3D()
+    {
+        x=0;
+        y=0;
+        z=0;
+    }
+
+    //INIT_
+    v_3D(double x0,double y0,double z0)
+    {
+        x=x0;
+        y=y0;
+        z=z0;
+    }
+
+    //COPY__CONSTRUCT_
+    v_3D(const v_3D &V);
+
+    //OPERATOR_OVERLOAD_
+    v_3D operator*(double val);
+    v_3D operator/(double val);
+    v_3D operator+(const v_3D &V);
+    v_3D operator-(const v_3D &V);
+    v_3D &operator=(const v_3D &V);
+
+    //OPERATE_
+    double magnitude();
+    double square();
+    double distance(const v_3D &V);
+    double dot_product(const v_3D &V);
+    v_3D cross_product(const v_3D &V);
+    v_3D normalize();
+
+    //UTILITY_
+    void disp();
+};
+
+v_3D::v_3D(const v_3D &V)
+{
+    x=V.x;
+    y=V.y;
+    z=V.z;
+}
+
+v_3D v_3D ::operator*(double val)
+{
+    return v_3D(x*val,y*val,z*val);
+}
+
+v_3D v_3D ::operator/(double val)
+{
+    return v_3D(x/val,y/val,z/val);
+}
+
+v_3D v_3D ::operator+(const v_3D &V)
+{
+    return v_3D(x+V.x,y+V.y,z+V.z);
+}
+
+v_3D v_3D ::operator-(const v_3D &V)
+{
+    return v_3D(x-V.x,y-V.y,z-V.z);
+}
+
+v_3D &v_3D::operator=(const v_3D &V)
+{
+    x=V.x;
+    y=V.y;
+    z=V.z;
+    return *this;
+}
+
+double v_3D::magnitude()
+{
+    double mag = sqrt(square());
+    return mag;
+}
+
+double v_3D::square()
+{
+    return x*x+y*y+z*z;
+}
+
+double v_3D::distance(const v_3D &V)
+{
+    v_3D d=*this-V;
+    return d.magnitude();
+}
+
+double v_3D::dot_product(const v_3D &V)
+{
+    return x*V.x+V.y*y+V.z*z;
+}
+
+v_3D v_3D ::cross_product(const v_3D &V)
+{
+    double i=y*V.z-z*V.y;
+    double j=z*V.x-x*V.z;
+    double k=x*V.y-y*V.x;
+    return v_3D(i,j,k);
+}
+
+v_3D v_3D:: normalize()
+{
+    *this = *this / magnitude();
+    return *this;
+}
+
+void v_3D::disp()
+{
+    cout<<x<<","<<y<<","<<z<<endl;
+}
+
+int main()
+{
+    //some operations performed
+    v_3D v1=v_3D(1,2,3);
+    v_3D v2=v_3D(4,5,6);
+    v_3D v3 =v1+v2;
+    v1=v1*5.5;
+    v3.disp();
+    v1.disp();
+    double dp=v1.dot_product(v2);
+    cout<<dp<<endl;
+    return 0;
+}
